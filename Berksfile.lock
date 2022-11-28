@@ -1,0 +1,6 @@
+DEPENDENCIES
+  errbit
+    path: .
+
+GRAPH
+  errbit (0.0.1)

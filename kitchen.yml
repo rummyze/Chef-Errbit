@@ -1,0 +1,32 @@
+# https://joachim8675309.medium.com/testkitchen-with-chef-and-serverspec-2ac0cd938e5
+
+driver:
+  name: vagrant
+
+# https://kitchen.ci/docs/reference/configuration/
+provisioner:
+  name: chef_zero
+  log_level: debug
+
+# https://docs.chef.io/inspec/plugin_kitchen_inspec/
+verifier:
+  name: inspec
+  inspec_tests:
+    - test
+
+# https://github.com/test-kitchen/test-kitchen/issues/1350
+
+platforms:
+  - name: ubuntu-20.04
+  - name: debian-9
+suites:
+  - name: install_app
+    run_list:
+      - recipe[errbit::default]
+    attributes:
+      errbit_port: "8080"
+      errbit_host: "errbit.example.com"
+      errbit_admin_passowrd: "master"
+    verifier:
+      inspec_tests:
+        - test/
